@@ -10,10 +10,10 @@ describe Api::V1::AuthTokensController, type: :request do
       let(:params) { { email: 'blog@email.example', password: '111111' }.to_json }
 
       specify do
-        expect(json).to eq({
-                              success: true,
-                              auth_token: user.authentication_token
-                           }.as_json)
+        expect(response.body).to eq({
+                                       success: true,
+                                       auth_token: user.authentication_token
+                                    }.to_json)
         expect(response).to have_http_status(201)
         expect(response.content_type).to eq('application/json')
       end
@@ -23,9 +23,9 @@ describe Api::V1::AuthTokensController, type: :request do
       let(:params) { { email: 'blog@email.example', password: '123456' }.to_json }
 
       specify do
-        expect(json).to eq({
-                              error: { message: 'Not Authenticated' }
-                           }.as_json)
+        expect(response.body).to eq({
+                                       error: { message: 'Not Authenticated' }
+                                    }.to_json)
         expect(response).to have_http_status(401)
         expect(response.content_type).to eq('application/json')
       end
