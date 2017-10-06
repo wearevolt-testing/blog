@@ -1,6 +1,16 @@
 class Api::V1::Author::PostsController < Api::V1::Author::BaseController
   before_action :time_now_if_published_at_is_nil, only: :create
 
+  def show
+    post = current_user.posts.find_by(id: params[:post_id])
+
+    if post.present?
+      render json: post, status: 200
+    else
+      render_error 'Post not found', 406
+    end
+  end
+
   def create
     post = current_user.posts.build(post_params)
 
