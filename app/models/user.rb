@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :posts, foreign_key: :author_id, dependent: :destroy
+
   before_save  :ensure_authentication_token
 
   validates :nickname, presence: true
