@@ -11,6 +11,11 @@ class Api::V1::BaseController < ActionController::Base
            status: status_code
   end
 
+  def render_success(data, status_code=200)
+    render json: { data: data },
+           status: status_code
+  end
+
   def user_not_authenticated
     render_error 'Not Authenticated', 401
   end

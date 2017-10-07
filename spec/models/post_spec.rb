@@ -3,12 +3,9 @@ require 'rails_helper'
 RSpec.describe Post, type: :model do
   it { is_expected.to validate_presence_of :body }
   it { is_expected.to validate_presence_of :title }
-  it { should validate_length_of(:title).is_at_most(100) }
-
-  it do
-    is_expected.to belong_to(:author).
-        class_name('User').with_foreign_key('author_id')
-  end
+  it { is_expected.to validate_length_of(:title).is_at_most(100) }
+  it { is_expected.to belong_to(:author).class_name('User') }
+  it { is_expected.to have_many(:comments) }
 
   describe '#recent' do
     let!(:post_1) { create :post }
