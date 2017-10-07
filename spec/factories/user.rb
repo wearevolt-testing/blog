@@ -4,9 +4,15 @@ FactoryGirl.define do
     nickname { FFaker::Lorem.word }
     password '111111'
 
-    trait :second_posts do
+    trait :several_posts do
       before(:create) do |user|
         user.posts = create_list :post, 2
+      end
+    end
+
+    trait :several_comments do
+      before(:create) do |user|
+        user.comments = create_list :comment, 2
       end
     end
   end

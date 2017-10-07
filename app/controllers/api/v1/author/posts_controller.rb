@@ -1,8 +1,6 @@
 class Api::V1::Author::PostsController < Api::V1::Author::BaseController
   include PostsHelper
 
-  before_action :time_now_if_published_at_is_nil, only: :create
-
   def index
     posts = current_user.posts.includes(:author).recent.page(params[:page]).per(params[:per_page])
 
@@ -34,12 +32,6 @@ class Api::V1::Author::PostsController < Api::V1::Author::BaseController
   end
 
   private
-
-  def time_now_if_published_at_is_nil
-    unless params[:published_at].present?
-      params[:published_at] = Time.now
-    end
-  end
 
   def post_params
     params.permit(:title, :body, :published_at)

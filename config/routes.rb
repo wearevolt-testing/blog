@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
       scope module: 'author' do
         resources :posts, only: [:index, :show, :create], param: :post_id
+        resource  :comments, only: [:create, :destroy]
       end
     end
   end
