@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
-
   root 'welcome#index'
+
+  devise_for :users, controllers: { registrations: 'registrations' }
+
+  devise_scope :user do
+    get '/preview', to: 'registrations#show'
+  end
 
   namespace :api do
     namespace :v1 do
