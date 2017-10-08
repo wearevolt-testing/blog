@@ -36,16 +36,24 @@ gem 'haml-rails'
 gem 'devise'
 gem 'active_model_serializers'
 gem 'kaminari'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'jquery-rails'
+gem 'simple_form'
+gem 'carrierwave'
+gem 'file_validators'
+gem 'mini_magick'
+gem 'aws-sdk-s3'
+gem 'fog'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'pry-rails'
+  gem 'dotenv-rails', require: 'dotenv/rails-now'
 end
 
 group :development do
@@ -62,6 +70,9 @@ group :test do
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
   gem 'database_cleaner'
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'capybara-webkit'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  mount_uploader :avatar, AvatarUploader
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -9,7 +9,8 @@ class User < ApplicationRecord
 
   before_save  :ensure_authentication_token
 
-  validates :nickname, presence: true
+  validates :nickname, presence: true, length: { maximum: 20 }
+  validates :avatar, file_size: { less_than: 3.megabytes }
 
   private
 
