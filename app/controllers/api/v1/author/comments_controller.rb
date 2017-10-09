@@ -25,10 +25,7 @@ class Api::V1::Author::CommentsController < Api::V1::Author::BaseController
   private
 
   def parent
-    @parent ||=
-      if params[:post_id].present?
-        Post.find_by(id: params[:post_id])
-      end
+    @parent ||= Post.find_by(id: params[:post_id]) if params[:post_id].present?
   end
 
   def comment_params

@@ -27,8 +27,8 @@ class Api::V1::ReportsController < Api::V1::BaseController
   end
 
   def period_of_dates?
-    if date_is_valid?
-      start_date == end_date ? false : true
-    end
+    return false unless date_is_valid?
+
+    start_date == end_date ? false : true
   end
 end
