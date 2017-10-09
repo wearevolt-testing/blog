@@ -9,7 +9,7 @@ class Api::V1::Author::BaseController < Api::V1::BaseController
     if user.present?
       sign_in user, store: false
     else
-      raise Exceptions::NotAuthorizedError
+      raise Exceptions::NotAuthenticatedError
     end
   end
 
