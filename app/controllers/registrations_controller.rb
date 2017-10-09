@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  prepend_before_action :authenticate_scope!, only: [:show, :edit, :update, :destroy]
+  prepend_before_action :authenticate_scope!, only: %i[show edit update destroy]
 
   protected
 

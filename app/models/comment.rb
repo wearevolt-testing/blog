@@ -6,13 +6,13 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
 
-  scope :comments_for_period, -> (start_date, end_date) { where(published_at: start_date..end_date) }
+  scope :comments_for_period, ->(start_date, end_date) { where(published_at: start_date..end_date) }
 
   private
 
   def time_now_if_published_at_is_nil
-    unless published_at.present?
-      self.published_at = Time.now
-    end
+    return false if published_at.present?
+
+    self.published_at = Time.now
   end
 end
