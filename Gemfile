@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use postgresql as the database for Active Record
@@ -44,6 +43,14 @@ gem 'file_validators'
 gem 'mini_magick'
 gem 'aws-sdk-s3'
 gem 'fog-aws'
+# Background processing + web interface for sidekiq
+gem 'sidekiq', '~> 5.0', '>= 5.0.5'
+gem 'sidekiq-status'
+gem 'sidekiq-failures'
+gem 'sidekiq-unique-jobs'
+gem 'sinatra', require: false
+gem 'redis', '~> 3.3.4'
+gem 'redis-namespace', '~> 1.5', '>= 1.5.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -54,6 +61,8 @@ group :development, :test do
   gem 'ffaker'
   gem 'pry-rails'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
+  gem 'letter_opener'
+  gem 'simplecov'
 end
 
 group :development do
@@ -73,6 +82,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'capybara-webkit'
+  gem 'rspec-sidekiq'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

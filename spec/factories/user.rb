@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
     email    { FFaker::Internet.email }
-    nickname { FFaker::Lorem.word }
+    nickname { FFaker::Name.unique.name }
     password '111111'
 
     trait :several_posts do

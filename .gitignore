@@ -21,3 +21,4 @@
 .env
 /config/database.yml
 public/uploads
+coverage

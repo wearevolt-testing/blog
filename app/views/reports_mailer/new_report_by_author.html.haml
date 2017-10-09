@@ -1,0 +1,12 @@
+%table
+  %tr
+    %th Nickname
+    %th Email
+    %th Count posts for period: from #{@start_date} to #{@end_date}
+    %th Count comments for period: from #{@start_date} to #{@end_date}
+  - @hash.each do |key, value|
+    %tr
+      %td= @hash[key]['nickname']
+      %td= @hash[key]['email']
+      %td= @hash[key]['posts_size']
+      %td= @hash[key]['comments_size']
