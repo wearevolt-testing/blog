@@ -1,0 +1,12 @@
+# Sample configuration file for Sidekiq.
+# Options here can still be overridden by cmd line args.
+#   sidekiq -C config.yml
+---
+:verbose: false
+:logfile: ./log/sidekiq.log
+:concurrency:  3
+:queues:
+  - default
+
+production:
+  :namespace: blog_production

@@ -1,14 +1,16 @@
 class ScheduleNewReportsWorker
   include Sidekiq::Worker
 
+  sidekiq_options failure: true
+
   def perform(start_date, end_date, recipient_email)
-    json = build_json(start_date, end_date)
-    NewReportsWorker.perform_async(json, recipient_email, start_date, end_date)
+    report = build_report(start_date, end_date)
+    NewReportsWorker.perform_async(report, recipient_email, start_date, end_date)
   end
 
   private
 
-  def build_json(start_date, end_date)
+  def build_report(start_date, end_date)
     hash = {}
 
     User.pluck(:id, :email, :nickname).each do |user|
@@ -26,6 +28,6 @@ class ScheduleNewReportsWorker
     end
 
     new_hash = hash.sort_by { |key, value| hash[key]['position'] }.reverse
-    new_hash.to_json
+    new_hash.to_h
   end
 end

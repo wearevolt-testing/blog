@@ -1,6 +1,6 @@
 class ReportsMailer < ApplicationMailer
-  def new_report_by_author(json, recipient_email, start_date, end_date)
-    @hash = JSON.parse(json).to_h
+  def new_report_by_author(report, recipient_email, start_date, end_date)
+    @report = report
     @start_date = start_date
     @end_date = end_date
 

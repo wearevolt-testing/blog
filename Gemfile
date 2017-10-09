@@ -43,13 +43,13 @@ gem 'file_validators'
 gem 'mini_magick'
 gem 'aws-sdk-s3'
 gem 'fog-aws'
+gem 'ffaker'
 # Background processing + web interface for sidekiq
-gem 'sidekiq', '~> 5.0', '>= 5.0.5'
+gem 'sidekiq', '~> 4.2', '>= 4.2.10'
 gem 'sidekiq-status'
 gem 'sidekiq-failures'
 gem 'sidekiq-unique-jobs'
 gem 'sinatra', require: false
-gem 'redis', '~> 3.3.4'
 gem 'redis-namespace', '~> 1.5', '>= 1.5.3'
 
 group :development, :test do
@@ -58,7 +58,6 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'selenium-webdriver'
   gem 'factory_girl_rails'
-  gem 'ffaker'
   gem 'pry-rails'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'letter_opener'
