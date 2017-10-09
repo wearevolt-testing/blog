@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :comment do
-    body { FFaker::Lorem.paragraph }
+    body         { FFaker::Lorem.paragraph }
+    published_at { Time.now }
 
     association :author, factory: :user
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171008092416) do
+ActiveRecord::Schema.define(version: 20171009113726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,15 +22,17 @@ ActiveRecord::Schema.define(version: 20171008092416) do
     t.string "commentable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "published_at"
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
+    t.index ["published_at"], name: "index_comments_on_published_at"
   end
 
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.text "body", null: false
     t.integer "author_id"
-    t.datetime "published_at"
+    t.datetime "published_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_posts_on_author_id"
@@ -55,6 +57,7 @@ ActiveRecord::Schema.define(version: 20171008092416) do
     t.string "avatar"
     t.index ["authentication_token"], name: "index_users_on_authentication_token"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

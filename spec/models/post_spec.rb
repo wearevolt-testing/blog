@@ -15,4 +15,17 @@ RSpec.describe Post, type: :model do
       expect(Post.recent).to eq [post_2, post_1]
     end
   end
+
+  describe '#posts_for_period' do
+    let!(:post_1) { create :post, published_at: 2.years.ago }
+    let!(:post_2) { create :post, published_at: 4.years.ago }
+
+    it 'when period of date is correct' do
+      expect(Post.posts_for_period(5.years.ago, 2.years.ago).size).to eq 2
+    end
+
+    it 'when period of date is incorrect' do
+      expect(Post.posts_for_period(2.years.ago, 2.years.ago).size).to eq 0
+    end
+  end
 end

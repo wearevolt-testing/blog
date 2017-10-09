@@ -72,13 +72,26 @@ RSpec.feature 'Sign up', type: :feature do
         expect(page.current_path).to eq user_registration_path
       end
 
-      scenario 'when the nickname more 20 characters' do
-        fill_in 'Nickname', with: 'default_nickname' * 2
+      scenario 'when the nickname more 39 characters' do
+        fill_in 'Nickname', with: 'default_nickname' * 3
 
         click_button 'Sign up'
 
-        expect(page).to have_css('.user_nickname .help-block', text: 'is too long (maximum is 20 characters)')
+        expect(page).to have_css('.user_nickname .help-block', text: 'is too long (maximum is 39 characters)')
         expect(page.current_path).to eq user_registration_path
+      end
+
+      context 'when nickname has already been taken' do
+        let!(:user) { create :user, nickname: 'nickname' }
+
+        specify do
+          fill_in 'Nickname', with: 'Nickname'
+
+          click_button 'Sign up'
+
+          expect(page).to have_css('.user_nickname .help-block', text: 'has already been taken')
+          expect(page.current_path).to eq user_registration_path
+        end
       end
     end
   end

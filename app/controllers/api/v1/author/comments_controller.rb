@@ -32,6 +32,6 @@ class Api::V1::Author::CommentsController < Api::V1::Author::BaseController
   end
 
   def comment_params
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(:body, :published_at)
   end
 end

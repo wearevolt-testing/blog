@@ -2,9 +2,14 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of :nickname }
-  it { is_expected.to validate_length_of(:nickname).is_at_most(20) }
+  it { is_expected.to validate_length_of(:nickname).is_at_most(39) }
   it { is_expected.to have_many(:posts).with_foreign_key('author_id') }
   it { is_expected.to have_many(:comments).with_foreign_key('author_id') }
+
+  describe 'unique validation for nickname' do
+    subject { create :user }
+    it { is_expected.to validate_uniqueness_of(:nickname).ignoring_case_sensitivity }
+  end
 
   describe 'destoys dependent posts' do
     let!(:posts) { create(:user, :several_posts) }
@@ -34,6 +39,15 @@ RSpec.describe User, type: :model do
       specify do
         expect(user.authentication_token).to eq 'uniquetoken123'
       end
+    end
+  end
+
+  describe '#nickname_downcase' do
+    let!(:user_1) { create :user, nickname: 'nickname' }
+    let!(:user_2) { build :user, nickname: 'Nickname' }
+
+    specify do
+      expect(user_2).to_not be_valid
     end
   end
 end
