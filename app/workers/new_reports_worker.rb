@@ -12,23 +12,11 @@ class NewReportsWorker
   private
 
   def build_report(start_date, end_date)
-    hash = {}
-
-    User.pluck(:id, :email, :nickname).each do |user|
-      posts_size = Post.where(author_id: user[0]).posts_for_period(start_date, end_date).size
-      comments_size = Comment.where(author_id: user[0]).comments_for_period(start_date, end_date).size
-
-      position = posts_size + comments_size / 10
-
-      hash[user[0]] = {}
-      hash[user[0]]['email'] = user[1]
-      hash[user[0]]['nickname'] = user[2]
-      hash[user[0]]['posts_size'] = posts_size
-      hash[user[0]]['comments_size'] = comments_size
-      hash[user[0]]['position'] = position
-    end
-
-    new_hash = hash.sort_by { |key, value| hash[key]['position'] }.reverse
-    new_hash.to_h
+    User
+      .joins("LEFT OUTER JOIN posts ON users.id = posts.author_id AND posts.published_at BETWEEN '#{start_date}' AND '#{end_date}'")
+      .joins("LEFT OUTER JOIN comments ON users.id = comments.author_id AND comments.published_at BETWEEN '#{start_date}' AND '#{end_date}'")
+      .select('users.id, users.email, users.nickname, COUNT(DISTINCT posts.id) AS posts_size, COUNT(DISTINCT comments.id) AS comments_size')
+      .having('COUNT(posts.id) > 0 OR COUNT(comments.id) > 0')
+      .group('users.id').sort_by { |user| user.posts_size + user.comments_size / 10 }.reverse
   end
 end
