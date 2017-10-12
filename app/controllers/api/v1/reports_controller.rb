@@ -4,7 +4,7 @@ class Api::V1::ReportsController < Api::V1::BaseController
       return render_error 'Date is invalid' unless date_is_valid?
       return render_error 'Period of dates is invalid' unless period_of_dates?
 
-      ScheduleNewReportsWorker.perform_async(params[:start_date], params[:end_date], params[:email])
+      NewReportsWorker.perform_async(params[:start_date], params[:end_date], params[:email])
 
       render json: { message: 'Report generation started' }, status: 200
     else

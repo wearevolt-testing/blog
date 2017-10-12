@@ -5,9 +5,9 @@
     %th Count posts for period: from #{@start_date} to #{@end_date}
     %th Count comments for period: from #{@start_date} to #{@end_date}
 
-  - @report.each do |key, value|
+  - @report.each do |user|
     %tr
-      %td= @report[key]['nickname']
-      %td= @report[key]['email']
-      %td= @report[key]['posts_size']
-      %td= @report[key]['comments_size']
+      %td= user.nickname
+      %td= user.email
+      %td= user.posts_size
+      %td= user.comments_size
